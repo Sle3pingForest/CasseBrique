@@ -178,19 +178,19 @@ public class GameWorld {
         plusDeBall = false;
     }
 
-    public void reStart(GameState s){
+    public void reStart(GameState s, int a){
+        this.wall.desTroyAll();
+        this.wall = new Wall(this);
         if(s.getState() == State.GameOver){
-            creationObjectJeu(this.nbBille);
+            creBille(a);
         }
         if(s.getState() == State.Won){
-            creationObjectJeu(this.nbBille + 1);
+            a++;
+            creBille(a);
+            this.nbBille = a;
         }
     }
 
-    private void creationObjectJeu(int nbBilleSp){
-        this.wall = new Wall(this);
-        creBille(nbBilleSp);
-    }
 
     public Racket getRacket() {
         return racket;
@@ -200,6 +200,7 @@ public class GameWorld {
     public int getNbBille(){
         return this.nbBille;
     }
+
 
     public Ball getBille(){
         return this.bille;

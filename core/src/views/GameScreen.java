@@ -89,7 +89,7 @@ public class GameScreen extends ScreenAdapter{
         else{
             checkState();
         }
-        //this.vp.apply();
+        this.vp.apply();
         this.orthoCam.position.set(orthoCam.viewportWidth/2, orthoCam.viewportHeight/2, 0);
         this.orthoCam.update();
         this.sb.setProjectionMatrix(this.orthoCam.combined);
@@ -99,7 +99,7 @@ public class GameScreen extends ScreenAdapter{
 
     @Override
     public void resize( int width,int height){
-        //vp.update(width,height);
+        vp.update(width,height);
         orthoCam.position.set(orthoCam.viewportWidth/2,orthoCam.viewportHeight/2,0);
         orthoCam.update();
         sb.setProjectionMatrix(orthoCam.combined);
@@ -122,16 +122,17 @@ public class GameScreen extends ScreenAdapter{
                 Timer.instance().scheduleTask(timer,3);
             }
             this.gw = new GameWorld(this);
-            this.gw.reStart(state);
+            this.gw.reStart(state,2);
         }
         if(state.getState() == State.Won){
             //this.sb.draw(TextureFactory.getTexBravo(), 200, 200);
             this.sb.draw(TextureFactory.getBoss(), 300, 100);
             if(pasDebrick){
                 int b = this.gw.getNbBille();
+               // System.out.println(b);
+                //System.out.println(this.gw.getNbBille());
                 this.gw = new GameWorld(this);
-                this.gw.setnbBille(b);
-                this.gw.reStart(state);
+                this.gw.reStart(state, b);
                 pasDebrick = false;
             }
             if(!timer.isScheduled()){
