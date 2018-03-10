@@ -140,15 +140,19 @@ public class GameWorld {
     public void checkBille(){
         if(this.bille.sortieJeu() && this.nbBille > 0){
             this.getWorld().destroyBody(this.bille.body);
+            this.getWorld().destroyBody(this.racket.bodyCd);
+            this.getWorld().destroyBody(this.racket.bodyCg);
+            this.getWorld().destroyBody(this.racket.bodyRect);
             this.getWorld().destroyBody(this.listeBalle.get(0).body);
             this.listeBalle.remove(0);
-            Vector2 v = new Vector2((TextureFactory.getTexBack().getWidth() - TextureFactory.getTexBorder().getWidth())/2, 80);
-            this.bille = new Ball(this,v,true);
+            this.bille = new Ball(this,new Vector2((TextureFactory.getTexBack().getWidth() - TextureFactory.getTexBorder().getWidth())/2, 80),true);
+            this.racket = new Racket(this, new Vector2((TextureFactory.getTexBack().getWidth() -  TextureFactory.getTexBorder().getWidth() - TextureFactory.getTexRacket().getWidth())/2   ,50));
             this.nbBille--;
             creBille(this.nbBille);
             System.out.println(this.nbBille);
             this.plusDeBall = false;
             this.perteBall = true;
+
         }
         else{
             if(this.bille.sortieJeu() && this.nbBille == 0){
