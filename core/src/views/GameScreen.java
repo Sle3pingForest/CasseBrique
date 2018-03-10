@@ -44,7 +44,7 @@ public class GameScreen extends ScreenAdapter{
                 state.setStat(State.Running);
             }
         };
-        this.orthoCam = new OrthographicCamera(1150,700);
+        this.orthoCam = new OrthographicCamera(5,4);
         this.vp = new FitViewport(1150,700 , this.orthoCam);
         debugRenderer = new Box2DDebugRenderer();
         this.orthoCam.position.set(orthoCam.viewportWidth/2, orthoCam.viewportHeight/2, 0);
@@ -59,7 +59,8 @@ public class GameScreen extends ScreenAdapter{
             this.gw.getRacket().droite();
         }
 
-        if(this.gw.getWall().estVide() && !pasDebrick){
+        //if(this.gw.getWall().estVide() && !pasDebrick){
+        if(this.gw.getWall().getComptBody() == 0){
             this.state.setStat(State.Won);
             pasDebrick = true;
             //SoundFactory.getVictoireSound().play(1.0f);
@@ -88,7 +89,7 @@ public class GameScreen extends ScreenAdapter{
         else{
             checkState();
         }
-        this.vp.apply();
+        //this.vp.apply();
         this.orthoCam.position.set(orthoCam.viewportWidth/2, orthoCam.viewportHeight/2, 0);
         this.orthoCam.update();
         this.sb.setProjectionMatrix(this.orthoCam.combined);
@@ -98,7 +99,7 @@ public class GameScreen extends ScreenAdapter{
 
     @Override
     public void resize( int width,int height){
-        vp.update(width,height);
+        //vp.update(width,height);
         orthoCam.position.set(orthoCam.viewportWidth/2,orthoCam.viewportHeight/2,0);
         orthoCam.update();
         sb.setProjectionMatrix(orthoCam.combined);
@@ -134,7 +135,7 @@ public class GameScreen extends ScreenAdapter{
                 pasDebrick = false;
             }
             if(!timer.isScheduled()){
-                Timer.instance().scheduleTask(timer,7);
+                Timer.instance().scheduleTask(timer,1);
             }
         }
         this.sb.end();

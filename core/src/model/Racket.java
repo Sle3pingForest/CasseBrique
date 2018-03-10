@@ -160,6 +160,11 @@ public class Racket {
         return this.bodyRect;
     }
 
+    public void destroyBodyRacket(){
+        this.gw.getWorld().destroyBody(this.bodyCd);
+        this.gw.getWorld().destroyBody(this.bodyCg);
+        this.gw.getWorld().destroyBody(this.bodyRect);
+    }
 
 
     public Vector2 getPos() {

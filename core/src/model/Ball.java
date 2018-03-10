@@ -69,12 +69,8 @@ public class Ball {
         }
     }
 
-    public void setEnjeu(boolean f){
-        this.enjeu = f;
-    }
-
-    protected void setDirection(){
-        body.setTransform(pos.x*GameWorld.PIXELS_TO_METERS, pos.y*GameWorld.PIXELS_TO_METERS , (float)Math.toRadians((150)));
+    public void desTroyBody(){
+        this.gw.getWorld().destroyBody(this.body);
     }
 
     public void draw(SpriteBatch sb){

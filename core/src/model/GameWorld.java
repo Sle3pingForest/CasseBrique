@@ -139,17 +139,16 @@ public class GameWorld {
 
     public void checkBille(){
         if(this.bille.sortieJeu() && this.nbBille > 0){
-            this.getWorld().destroyBody(this.bille.body);
+            /*this.getWorld().destroyBody(this.bille.body);
             this.getWorld().destroyBody(this.racket.bodyCd);
             this.getWorld().destroyBody(this.racket.bodyCg);
             this.getWorld().destroyBody(this.racket.bodyRect);
-            this.getWorld().destroyBody(this.listeBalle.get(0).body);
-            this.listeBalle.remove(0);
+            this.getWorld().destroyBody(this.listeBalle.get(1).body);*/
+            this.clear();
             this.bille = new Ball(this,new Vector2((TextureFactory.getTexBack().getWidth() - TextureFactory.getTexBorder().getWidth())/2, 80),true);
             this.racket = new Racket(this, new Vector2((TextureFactory.getTexBack().getWidth() -  TextureFactory.getTexBorder().getWidth() - TextureFactory.getTexRacket().getWidth())/2   ,50));
             this.nbBille--;
             creBille(this.nbBille);
-            System.out.println(this.nbBille);
             this.plusDeBall = false;
             this.perteBall = true;
 
@@ -161,6 +160,14 @@ public class GameWorld {
         }
     }
 
+    public void clear(){
+        this.bille.desTroyBody();
+        this.racket.destroyBodyRacket();
+        for(int i = 0 ; i < this.nbBille; i++) {
+            this.listeBalle.get(i).desTroyBody();
+        }
+
+    }
 
     public void creBille(int nbB){
         this.listeBalle = new ArrayList<Ball>();
@@ -182,8 +189,7 @@ public class GameWorld {
 
     private void creationObjectJeu(int nbBilleSp){
         this.wall = new Wall(this);
-        this.nbBille = nbBilleSp;
-        creBille(nbBille);
+        creBille(nbBilleSp);
     }
 
     public Racket getRacket() {

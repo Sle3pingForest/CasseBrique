@@ -22,20 +22,21 @@ public class Wall{
     protected GameWorld gw;
     protected Brick wall[][];
     protected ArrayList<Body> listBodyDestroy;
+    protected int comptBody;
 
-    static final int wallInt[][] = {
+    /*static final int wallInt[][] = {
             {0,2,0,1,0,0,1,0,2,0},
             {0,0,2,0,1,1,0,2,0,0},
             {0,0,0,2,0,0,2,0,0,0},
             {0,0,0,0,2,2,0,0,0,0},
-            {3,0,3,3,0,0,3,3,0,3}};
-/*
+            {3,0,3,3,0,0,3,3,0,3}};*/
+
     static final int wallInt[][] = {
             {3,3,3,3,3,3,3,3,3,3},
             {3,3,3,3,3,3,3,3,3,3},
             {3,3,3,3,3,3,3,3,3,3},
             {3,3,3,3,3,3,3,3,3,3},
-            {3,3,3,3,3,1,3,3,3,3}};*/
+            {3,3,3,3,3,1,3,3,3,3}};
 
     public Wall(GameWorld gw){
         this.gw = gw;
@@ -43,8 +44,8 @@ public class Wall{
         this.nbC = wallInt[0].length;
         this.wall = new Brick[this.nbL][this.nbC];
         this.listBodyDestroy= new ArrayList<Body>();
-
         this.nbBrickTotal = 0;
+        this.comptBody = 0;
         setBricks(false);
     }
 
@@ -62,14 +63,18 @@ public class Wall{
                         case 0:
                             wall[getNbL() - lig][col] = new BlueBrick(this.gw, new Vector2(posCol, posLig),1);
                             nbBrickTotal++;
+                            comptBody++;
                             break;
                         case 1:
                             wall[getNbL() - lig][col] = new GreenBrick(this.gw, new Vector2(posCol, posLig),1);
                             nbBrickTotal++;
+
+                            comptBody++;
                             break;
                         case 2:
                             wall[getNbL() - lig][col] = new GreenBrick(this.gw, new Vector2(posCol, posLig),2);
                             nbBrickTotal++;
+                            comptBody++;
                             break;
                         case 3:
                             wall[getNbL() - lig][col] = null;
@@ -98,16 +103,28 @@ public class Wall{
 
 
     public void addDestroy(Body b){
+        this.listBodyDestroy= new ArrayList<Body>();
         this.listBodyDestroy.add(b);
     }
 
     public void desTroy(){
-        nbRestant = this.nbBrickTotal - this.listBodyDestroy.size();
+        //nbRestant = this.nbBrickTotal - this.listBodyDestroy.size();
         for(int i = 0 ; i <this.listBodyDestroy.size(); ++i){
-            this.listBodyDestroy.get(i).setActive(false);
+            //this.listBodyDestroy.get(i).setActive(false);
+            this.gw.getWorld().destroyBody(this.listBodyDestroy.get(i));
+            setComptBody();
         }
+        this.listBodyDestroy.clear();
     }
 
+    public int getComptBody(){
+        return this.comptBody;
+    }
+
+    public void setComptBody(){
+        this.comptBody--;
+    }
+/*
     public boolean estVide(){
         if(nbRestant <= 0){
             return true;
@@ -116,7 +133,7 @@ public class Wall{
             return false;
         }
     }
-
+*/
     public int getNbRestant(){
         return this.nbRestant;
     }
