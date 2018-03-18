@@ -63,17 +63,17 @@ public class GameScreen extends ScreenAdapter{
         if(this.gw.getWall().getComptBody() == 0){
             this.state.setStat(State.Won);
             pasDebrick = true;
-            //SoundFactory.getVictoireSound().play(1.0f);
+            SoundFactory.getVictoireSound().play(1.0f);
         }
 
         if(this.gw.perteBall){
             this.state.setStat(State.BallLoss);
-            //SoundFactory.getPerteBalleSound().play(1.0f);
+            SoundFactory.getPerteBalleSound().play(1.0f);
         }
 
         if(this.gw.plusDeBall){
             this.state.setStat(State.GameOver);
-            //SoundFactory.getPerteSound().play(1.0f);
+            SoundFactory.getPerteSound().play(1.0f);
         }
 
 
@@ -129,14 +129,12 @@ public class GameScreen extends ScreenAdapter{
             this.sb.draw(TextureFactory.getBoss(), 300, 100);
             if(pasDebrick){
                 int b = this.gw.getNbBille();
-               // System.out.println(b);
-                //System.out.println(this.gw.getNbBille());
                 this.gw = new GameWorld(this);
                 this.gw.reStart(state, b);
                 pasDebrick = false;
             }
             if(!timer.isScheduled()){
-                Timer.instance().scheduleTask(timer,1);
+                Timer.instance().scheduleTask(timer,7);
             }
         }
         this.sb.end();

@@ -12,6 +12,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.SchemaOutputResolver;
+
 import fr.ul.cassebrique.dataFactories.SoundFactory;
 import fr.ul.cassebrique.dataFactories.TextureFactory;
 import views.GameScreen;
@@ -72,34 +74,29 @@ public class GameWorld {
                     if(refB.getUserData() instanceof BlueBrick){
                         ((BlueBrick) refB.getUserData()).setNb_cp_sp(1);
                         wall.addDestroy(refB);
-                        //SoundFactory.getCollision().play(1.0f);
+                        SoundFactory.getCollision().play(1.0f);
                     }
                     if(refB.getUserData() instanceof GreenBrick ) {
                         ((GreenBrick) refB.getUserData()).setNb_cp_sp(1);
                         if(((GreenBrick) refB.getUserData()).getNb_cp_sp() == 0){
                             wall.addDestroy(refB);
                         }
-                        //SoundFactory.getCollision().play(1.0f);
+                        SoundFactory.getCollision().play(1.0f);
                     }
                     if(refB.getUserData() instanceof Racket){
-                        //SoundFactory.getImpact().play(1.0f);
                         float facteurAcc = (refB.getPosition().x +TextureFactory.getTexRacket().getWidth()/2)*GameWorld.PIXELS_TO_METERS - (ballRef.getPosition().x+ Ball.rayon)*PIXELS_TO_METERS;
 
-                        //System.out.println("racket: " + refB.getPosition().x +TextureFactory.getTexRacket().getWidth()/2 + "****" + "ball:"+ ballRef.getPosition().x+ Ball.rayon );
-
                         if(facteurAcc > 0){
-                            //System.out.println("possitif:" + facteurAcc);
                             ballRef.setLinearVelocity(ballRef.getLinearVelocity().x-(3*facteurAcc),  ballRef.getLinearVelocity().y);
                         }
                         else{
-                            //System.out.println("negatif:" + facteurAcc);
                             ballRef.setLinearVelocity(ballRef.getLinearVelocity().x+(3*facteurAcc), ballRef.getLinearVelocity().y);
                         }
 
+                        SoundFactory.getImpact().play(1.0f);
                     }
-
-                    if(refB.getUserData() instanceof Wall){
-                        //SoundFactory.getImpact().play(1.0f);
+                    if(refB.getUserData() instanceof Background){
+                        SoundFactory.getCollision().play(1.0f);
                         ballRef.setLinearVelocity(x * ballRef.getLinearVelocity().x, y* ballRef.getLinearVelocity().y);
                     }
                 }
