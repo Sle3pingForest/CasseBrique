@@ -24,14 +24,14 @@ public class Wall{
     protected ArrayList<Body> listBodyDestroy;
     protected int comptBody;
 
-   /*static final int wallInt[][] = {
+   static final int wallInt[][] = {
             {0,2,0,1,0,0,1,0,2,0},
             {0,0,2,0,1,1,0,2,0,0},
             {0,0,0,2,0,0,2,0,0,0},
             {0,0,0,0,2,2,0,0,0,0},
             {3,0,3,3,0,0,3,3,0,3}};
 
-    static final int wallInt[][] = {
+    /*static final int wallInt[][] = {
             {0,1,0,1,0,0,1,0,1,0},
             {0,0,1,0,1,1,0,1,0,0},
             {0,0,0,1,0,0,1,0,0,0},
@@ -39,12 +39,12 @@ public class Wall{
             {3,0,3,3,0,0,3,3,0,3}};*/
 
 
-   static final int wallInt[][] = {
+   /*static final int wallInt[][] = {
             {3,3,3,3,3,3,3,3,3,3},
             {3,3,3,3,3,3,3,3,3,3},
             {3,3,3,3,3,3,3,3,3,3},
             {3,3,3,3,3,3,3,3,3,3},
-            {3,3,3,3,3,1,3,3,3,3}};
+            {3,3,3,3,3,1,3,3,3,3}};*/
 
     public Wall(GameWorld gw){
         this.gw = gw;

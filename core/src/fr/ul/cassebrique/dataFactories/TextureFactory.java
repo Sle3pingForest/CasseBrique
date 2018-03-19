@@ -25,7 +25,12 @@ public class TextureFactory {
     private static final Texture end1 = new Texture(Gdx.files.internal("images/1.png"));
     private static final Texture end2 = new Texture(Gdx.files.internal("images/2.png"));
     private static final Texture end3 = new Texture(Gdx.files.internal("images/3.png"));
+    private static final Texture animationGreenBrickA = new Texture(Gdx.files.internal("images/Anim2Ca.png"));
 
+
+    public static Texture getAnimationGreenBrickA() {
+        return animationGreenBrickA;
+    }
 
     public static Texture getBoss() {
         return boss;
