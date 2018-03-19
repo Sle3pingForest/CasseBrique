@@ -32,6 +32,7 @@ public class Ball {
     private void creationBody(){
         BodyDef bdef = new BodyDef();
         bdef.type = BodyDef.BodyType.DynamicBody;
+        //bdef.type = BodyDef.BodyType.StaticBody;
         bdef.bullet = true;
         bdef.fixedRotation = true;
         body = this.gw.getWorld().createBody(bdef);

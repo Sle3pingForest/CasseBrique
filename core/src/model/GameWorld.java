@@ -45,7 +45,7 @@ public class GameWorld {
         this.wall = new Wall(this);
         this.bg = new Background(this);
         this.racket = new Racket(this, new Vector2((TextureFactory.getTexBack().getWidth() -  TextureFactory.getTexBorder().getWidth() - TextureFactory.getTexRacket().getWidth())/2   ,50));
-        Vector2 v = new Vector2((TextureFactory.getTexBack().getWidth() - TextureFactory.getTexBorder().getWidth())/2, 70);
+        Vector2 v = new Vector2((TextureFactory.getTexBack().getWidth() - TextureFactory.getTexBorder().getWidth())/2, 80);
         this.bille = new Ball(this,v,true);
         creBille(this.nbBille);
         this.world.setVelocityThreshold(0);

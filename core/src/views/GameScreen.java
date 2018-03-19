@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
+import controls.Listener;
 import fr.ul.cassebrique.dataFactories.SoundFactory;
 import fr.ul.cassebrique.dataFactories.TextureFactory;
 import model.GameState;
@@ -25,17 +26,20 @@ public class GameScreen extends ScreenAdapter{
     protected SpriteBatch sb;
     protected GameWorld gw;
     private GameState state;
+    private Listener listener;
     private Timer.Task timer;
     private OrthographicCamera orthoCam;
     private Viewport vp;
     private boolean pasDebrick = false;
     private Box2DDebugRenderer debugRenderer;
+    private int comptSpace = 0;
 
     static final int timeIter = 1000 / 60;
 
     public GameScreen(){
         this.sb = new SpriteBatch();
         this.gw = new GameWorld(this);
+        this.listener = new Listener(this);
         this.state = new GameState(State.Running);
         this.timer = new Timer.Task() {
             @Override
@@ -52,12 +56,44 @@ public class GameScreen extends ScreenAdapter{
     }
 
     public void update(){
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isTouched() && Gdx.input.getX() < this.gw.getRacket().getPos().x + TextureFactory.getTexRacket().getWidth()/2){
+        int orientation = Gdx.input.getRotation();
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)
+                || Gdx.input.isTouched()
+                && Gdx.input.getX() < this.gw.getRacket().getPos().x + TextureFactory.getTexRacket().getWidth()/2 ){
             this.gw.getRacket().gauche();
+
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isTouched() && Gdx.input.getX() > this.gw.getRacket().getPos().x + TextureFactory.getTexRacket().getWidth()/2){
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)
+                || Gdx.input.isTouched()
+                && Gdx.input.getX() > this.gw.getRacket().getPos().x + TextureFactory.getTexRacket().getWidth()/2){
             this.gw.getRacket().droite();
         }
+        if(Gdx.input.getAccelerometerY() < -1){
+            this.gw.getRacket().gauche();
+            System.out.println("gauche " + Gdx.input.getAccelerometerX());
+        }
+
+        if(Gdx.input.getAccelerometerY() > 1){
+            this.gw.getRacket().droite();System.out.println("droite " + Gdx.input.getAccelerometerX());
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            listener.keyDown(0);
+
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+            if(this.state.getState() == State.Running) {
+                listener.keyDown(1);
+                System.out.println("je suis dans Pausse");
+            }
+            else{
+                listener.keyDown(2);
+                System.out.println("je suis dans Run forest");
+            }
+        }
+
+
 
         //if(this.gw.getWall().estVide() && !pasDebrick){
         if(this.gw.getWall().getComptBody() == 0){
@@ -82,7 +118,7 @@ public class GameScreen extends ScreenAdapter{
 
     @Override
     public void render(float delta){
-        if(state.getState() == State.Running){
+        if(state.getState() == State.Running || state.getState() == State.Pause){
             this.gw.draw(this.sb);
             update();
         }
@@ -136,6 +172,16 @@ public class GameScreen extends ScreenAdapter{
             if(!timer.isScheduled()){
                 Timer.instance().scheduleTask(timer,7);
             }
+        }
+        if(state.getState() == State.Quit){
+
+            this.sb.draw(TextureFactory.getEnd1(), 300, 100);
+            this.sb.draw(TextureFactory.getEnd2(), 300, 100);
+            this.sb.draw(TextureFactory.getEnd3(), 300, 100);
+            if(!timer.isScheduled()){
+                Timer.instance().scheduleTask(timer,7);
+            }
+            Gdx.app.exit();
         }
         this.sb.end();
     }

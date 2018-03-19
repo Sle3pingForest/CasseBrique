@@ -22,6 +22,9 @@ public class TextureFactory {
     private static final Texture texPerte = new Texture(Gdx.files.internal("images/Perte.bmp"));
     private static final Texture troll = new Texture(Gdx.files.internal("images/troll.jpg"));
     private static final Texture boss = new Texture(Gdx.files.internal("images/boss.jpg"));
+    private static final Texture end1 = new Texture(Gdx.files.internal("images/1.png"));
+    private static final Texture end2 = new Texture(Gdx.files.internal("images/2.png"));
+    private static final Texture end3 = new Texture(Gdx.files.internal("images/3.png"));
 
 
     public static Texture getBoss() {
@@ -71,6 +74,18 @@ public class TextureFactory {
 
     public static Texture getTexPerte() {
         return texPerte;
+    }
+
+    public static Texture getEnd1() {
+        return end1;
+    }
+
+    public static Texture getEnd2() {
+        return end2;
+    }
+
+    public static Texture getEnd3() {
+        return end3;
     }
 }
 
