@@ -46,7 +46,7 @@ public class GameWorld {
         this.bg = new Background(this);
         this.racket = new Racket(this, new Vector2((TextureFactory.getTexBack().getWidth() -  TextureFactory.getTexBorder().getWidth() - TextureFactory.getTexRacket().getWidth())/2   ,50));
         Vector2 v = new Vector2((TextureFactory.getTexBack().getWidth() - TextureFactory.getTexBorder().getWidth())/2, 80);
-        this.bille = new Ball(this,v,true);
+        this.bille = new Ball2DAnime(this,v,true);
         creBille(this.nbBille);
         this.world.setVelocityThreshold(0);
         this.world.setContactListener(new ContactListener() {
@@ -142,7 +142,7 @@ public class GameWorld {
             this.getWorld().destroyBody(this.racket.bodyRect);
             this.getWorld().destroyBody(this.listeBalle.get(1).body);*/
             this.clear();
-            this.bille = new Ball(this,new Vector2((TextureFactory.getTexBack().getWidth() - TextureFactory.getTexBorder().getWidth())/2, 80),true);
+            this.bille = new Ball2DAnime(this,new Vector2((TextureFactory.getTexBack().getWidth() - TextureFactory.getTexBorder().getWidth())/2, 80),true);
             this.racket = new Racket(this, new Vector2((TextureFactory.getTexBack().getWidth() -  TextureFactory.getTexBorder().getWidth() - TextureFactory.getTexRacket().getWidth())/2   ,50));
             this.nbBille--;
             creBille(this.nbBille);
@@ -170,7 +170,7 @@ public class GameWorld {
         this.listeBalle = new ArrayList<Ball>();
         for(int i = 0 ; i < nbB; i++){
             Vector2 pos = new Vector2(TextureFactory.getTexBack().getWidth() - TextureFactory.getTexBorder().getWidth()/2 ,25+50*(i));
-            this.listeBalle.add(new Ball(this,pos, false));
+            this.listeBalle.add(new Ball2DAnime(this,pos, false));
         }
         plusDeBall = false;
     }

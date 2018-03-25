@@ -22,20 +22,19 @@ public class Listener implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        System.out.println(keycode);
-        if(keycode == 1){
-            System.out.println("je suis en running je vais mettre pausse");
-            this.gs.getGameState().setStat(State.Pause);
-        }
-        if(keycode == 2){
-            System.out.println("je suis en pausse je vais mettre en running");
-            this.gs.getGameState().setStat(State.Running);
+        switch (keycode){
+            case Input.Keys.ESCAPE:
+                this.gs.getGameState().setStat(State.Quit);
 
+            case Input.Keys.SPACE:
+                if(this.gs.getGameState().getState() == State.Running){
+                    this.gs.getGameState().setStat(State.Pause);
+                }
+                else{
+                    this.gs.getGameState().setStat(State.Running);
+                }
         }
-        if(keycode == 0){
-            this.gs.getGameState().setStat(State.Quit);
-        }
-        return false;
+        return true;
     }
 
     @Override

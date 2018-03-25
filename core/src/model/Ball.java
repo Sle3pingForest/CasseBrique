@@ -14,12 +14,13 @@ import fr.ul.cassebrique.dataFactories.TextureFactory;
  * Created by User on 03/02/2018.
  */
 
-public class Ball {
+public abstract class  Ball {
     public static float rayon = 12;
     protected GameWorld gw;
     protected Vector2 pos;
     protected Body body;
     protected boolean enjeu;
+    protected float x,y;
 
     public Ball(GameWorld gw, Vector2 position, boolean enjeu){
         this.gw = gw;
@@ -70,6 +71,7 @@ public class Ball {
         }
     }
 
+
     public void desTroyBody(){
         this.gw.getWorld().destroyBody(this.body);
     }
@@ -84,6 +86,10 @@ public class Ball {
     public void setPos(Vector2 pos){
         this.pos = pos;
 
+    }
+
+    public Body getBody(){
+        return this.body;
     }
 
     public Vector2 getPosBall(){

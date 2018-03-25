@@ -56,7 +56,6 @@ public class GameScreen extends ScreenAdapter{
     }
 
     public void update(){
-        int orientation = Gdx.input.getRotation();
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)
                 || Gdx.input.isTouched()
                 && Gdx.input.getX() < this.gw.getRacket().getPos().x + TextureFactory.getTexRacket().getWidth()/2 ){
@@ -70,27 +69,10 @@ public class GameScreen extends ScreenAdapter{
         }
         if(Gdx.input.getAccelerometerY() < -1){
             this.gw.getRacket().gauche();
-            System.out.println("gauche " + Gdx.input.getAccelerometerX());
         }
 
         if(Gdx.input.getAccelerometerY() > 1){
-            this.gw.getRacket().droite();System.out.println("droite " + Gdx.input.getAccelerometerX());
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-            listener.keyDown(0);
-
-        }
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            if(this.state.getState() == State.Running) {
-                listener.keyDown(1);
-                System.out.println("je suis dans Pausse");
-            }
-            else{
-                listener.keyDown(2);
-                System.out.println("je suis dans Run forest");
-            }
+            this.gw.getRacket().droite();
         }
 
 
@@ -118,7 +100,16 @@ public class GameScreen extends ScreenAdapter{
 
     @Override
     public void render(float delta){
-        if(state.getState() == State.Running || state.getState() == State.Pause){
+
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+            listener.keyDown(Input.Keys.SPACE);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            listener.keyDown(Input.Keys.ESCAPE);
+        }
+
+        if(state.getState() == State.Running){
             this.gw.draw(this.sb);
             update();
         }
@@ -175,12 +166,12 @@ public class GameScreen extends ScreenAdapter{
         }
         if(state.getState() == State.Quit){
 
-            this.sb.draw(TextureFactory.getEnd1(), 300, 100);
+           /*this.sb.draw(TextureFactory.getEnd1(), 300, 100);
             this.sb.draw(TextureFactory.getEnd2(), 300, 100);
             this.sb.draw(TextureFactory.getEnd3(), 300, 100);
             if(!timer.isScheduled()){
                 Timer.instance().scheduleTask(timer,7);
-            }
+            }*/
             Gdx.app.exit();
         }
         this.sb.end();
@@ -198,6 +189,9 @@ public class GameScreen extends ScreenAdapter{
         return sb;
     }
 
+    public GameWorld getGw(){
+        return this.gw;
+    }
 
     @Override
     public void dispose() {
